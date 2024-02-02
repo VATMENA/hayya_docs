@@ -1,0 +1,129 @@
+import { Callout, Steps } from 'nextra/components';
+
+# Issuing Certificates
+
+**Certificates** are how Hayya tracks controller permissions. This system replaces ratings, solo endorsements and OpenSkies endorsements, and combines it into one centralized system used for all controlling permissions within VATMENA.
+
+## Old Ratings
+
+As of March 1, 2024, all old ratings have been grandfathered into the new Certificate system. This step will not be run again, and Certificates should be used for all new ratings.
+
+## VATSIM Ratings
+
+Although Certificates are used *within* VATMENA for issuing permissions, a rating must still be set at the .NET level for the user to be able to log into the network. Use the following guide to determine what rating to set:
+
+| If the certificate is for...            | The user must be an: |
+|-----------------------------------------|----------------------|
+| Clearance Delivery                      | S1 or higher         |
+| Ground/Ramp Control                     | S1 or higher         |
+| Solo Tower Control                      | S1 or higher         |
+| Permanent Tower Control                 | S2 or higher         |
+| Solo Approach Control                   | S2 or higher         |
+| Permanent Approach Control              | S3 or higher         |
+| Solo Enroute/OpenSkies/SuperCenter      | S3 or higher         |
+| Permanent Enroute/OpenSkies/SuperCenter | C1 or higher         |
+
+For SUP/ADM rated controllers, they do not have any permission requirements at the .NET level. Permissions are tracked entirely via the Certificate system.
+
+<Callout type="info">
+    Ratings at the .NET level can only be updated by someone with Terminal access. Contact the relevant staff members within your division to update ratings at the .NET level if needed.
+</Callout>
+
+## Position Matching
+
+Certificates are *specific to one position.* That is to say, a certificate for `GND` **DOES NOT** include `DEL`, `TWR` **DOES NOT** include `GND`, etc. All certificates must be issued individually, otherwise automated matchers (such as Unauthorized Connection Detection) may fail.
+
+## Issuing Certificates
+
+To issue a certificate, follow the steps below.
+
+<Callout type="warning">
+    Solo & OpenSkies certificates can only by issued by division staff. You must have permission to issue certificates in the vACC of a user in order to issue a certificate for them.
+</Callout>
+
+<Steps>
+    ### Locate the user
+    Open Hayya and navigate to the roster page of any vACC which the user is a member or visitor of. Find them in the table via the search bar in the top left of the table.
+
+    ![Locate the user](/issue_cert_01.png)
+
+    ### Check for duplicate certificates
+    Check each certificate the user already has to ensure you are not going to issue a duplicate certificate. Hover each certificate's badge to view details.
+    <Callout type="error">
+        The system **will not** prevent you from issuing duplicate certificates.
+    </Callout>
+
+    ### Open the Issue Certificate dialog
+
+    Open the Issue Certificate dialog by opening the actions menu and selecting Issue Certificate.
+
+    ![Open the Issue Certificate dialog](/issue_cert_03.png)
+
+    If you do not see this option, you do not have permission to issue certificates for the selected user. Contact division staff if you think this is a mistake.
+
+    After you select Issue Certificate, you will see the dialog below:
+
+    ![Issue Certificate dialog](/issue_cert_03b.png)
+
+    ### Select the Certificate Type (C/TYP) (Always Required)
+
+    In the C/TYP dropdown, select either Solo or Permanent. Only division staff can issue solo certificates. Permanent certificates can be revoked by vACC senior staff & division staff only.
+
+    ### Select the Position Type (P/TYP) (Always Required)
+
+    In the P/TYP dropdown, select the appropriate position type. Use the following table to determine what to do next:
+
+    | If you are issuing for...                            | The correct P/TYP is... | Then you should:       |
+    |------------------------------------------------------|-------------------------|------------------------|
+    | A Super Center Position                              | `SuperCenter`           | **Skip** to Step 8     |
+    | An OpenSkies endorsement                             | `OpenSkies`             | **Skip** to Step 7     |
+    | An Unrestricted position (not Tier 1 or Tier 2)      | `Unrestricted`          | **Skip** to Step 7     |
+    | A Tier 1 or Tier 2 position (DEL, GND, TWR, APP/DEP) | `Tier1` or `Tier2`      | **Continue** to Step 6 |
+    | Any Enroute Control                                  | `Enroute`               | **Skip** to Step 8     |
+
+    ### Input the Facility ICAO (for `Tier1`/`Tier2` only!)
+
+    <Callout type="warning">
+        Leave this field blank unless issuing for a Tier 1 or Tier 2 position.
+    </Callout>
+
+    Input the ICAO of the associated airfield for the position into the `Facility ICAO` field. Do this even for `APP/DEP` positions.
+
+    ### Input the Controlling Position (for `OpenSkies`/`Unrestricted`/`Tier1`/`Tier2` only!)
+
+    <Callout type="warning">
+        Leave this field blank unless issuing for an OpenSkies, Unrestricted, Tier 1 or Tier 2 position.
+    </Callout>
+
+    Input the desired position type into the `POS`/Position field. Keep in mind that certificates are *specific* and do not operate top-down.
+
+    ### Add Instructor Comments (required for Enroute/SuperCenter, add when needed for other certs)
+
+    In the Comments field, add any comments or restrictions for this certificate.
+
+    <Callout type="warning">
+        **These comments can never be changed** and they will be associated with your name as part of your notarization of this certificate.
+    </Callout>
+
+    <Callout type="info">
+        For Enroute and SuperCenter positions, use this field to input the specifics of their certification, e.g. sectors or altitudes.
+    </Callout>
+
+    Unless you are issuing a solo certificate, skip the next step.
+
+    ### Add expiry date (SOLO ONLY)
+
+    Using the date picker in the Solo Expiry field, set the expiry date for the solo certificate.
+
+    <Callout type="warning">
+        **DO NOT** touch this field unless issuing a solo certificate. It cannot be un-set, and will invalidate the certificate if set for a non-solo.
+    </Callout>
+
+    Solo certificates will be automatically revoked after this date.
+
+    ### Confirm information and issue certificate
+
+    Confirm the information you have inputted, and then press Issue Certificate. The certificate will be validated by the system prior to issuance. If there are any validation errors, they will be highligted in red. Contact technical staff if you need assistance issuing a certificate.
+
+    After the certificate has been successfully issued, the dialog will close and the certificate should appear on the user's list entry shortly.
+</Steps>
